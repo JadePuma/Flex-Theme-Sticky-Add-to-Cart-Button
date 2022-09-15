@@ -1,0 +1,96 @@
+{% comment %}
+
+Code created by JadePuma
+Instructions - https://jadepuma.com/blogs/shopify-tutorials/dynamic-call-to-action-button-for-product-pages-in-the-flex-theme
+Last editted - 14Sep22
+ 
+{% endcomment %}
+
+<div class="product_bottom_cta" style="opacity:0; transform:translateY(100%);">
+  <button class="product-cta-button" onclick="document.getElementById('jump-to-buy').scrollIntoView({ behavior: 'smooth' });">
+   ADD TO CART 
+   <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-chevron-up arrow_up" 
+   viewBox="0 0 498.98 284.49"><defs><style>.cls-1{fill:#fff;} 
+   </style></defs>
+   <path class="cls-1" d="M579.91 486.24A35 35 0 0 1 520.16 511L330.42 321.25 140.68 511a35 35 0 1 1-49.5-49.5L305.67 247a35 35 0 0 1 49.5 0l214.49 214.5a34.89 34.89 0 0 1 10.25 24.74z"
+   transform="translate(-80.93 -236.76)">
+   </path>
+   </svg>
+  </button>
+</div>
+
+{% style %}
+
+.product_bottom_cta{
+    position:fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    bottom:0;
+    width:100%;
+    height:auto;
+    background-color:#fff;
+    box-shadow: 5px 5px 8px 0 #000;
+    transition: all ease .5s;
+    padding:6px;
+    z-index:101;
+}
+
+.product-cta-button {
+    padding: 0.7rem 1.5rem;
+	font-size: 1.2rem;
+    background-color: #7f032c;
+    color:#fff;
+    border:none;
+    border-radius: 3px;
+
+  }
+
+.product-cta-button:hover {
+    transform: scale(1.03);
+    cursor:pointer;
+    background-color: #a72751;
+  }
+
+  @media only screen and (max-width: 600px) {
+
+.product-cta-button {
+    padding: 0.6rem 1.3rem;
+	font-size: 1rem;
+    background-color: #7f032c;
+    color:#fff;
+    border:none;
+    border-radius: 3px;
+
+  }
+}
+
+.arrow_up{
+  margin-left:5px; 
+  max-height:12px; 
+  padding-bottom:4px;
+}
+
+{% endstyle %}
+
+
+<script>
+
+
+var product_bottom_cta = document.querySelector('.product_bottom_cta')
+
+var observer = new IntersectionObserver(function(entries) {
+	// isIntersecting is true when element and viewport are overlapping
+	// isIntersecting is false when element and viewport don't overlap
+	if(entries[0].isIntersecting === true){
+        product_bottom_cta.style.opacity = 0;
+        product_bottom_cta.style.transform = "translateY(100%)";
+    }else{
+        product_bottom_cta.style.opacity = 1;  
+        product_bottom_cta.style.transform = "translateY(0)";
+    }
+}, { threshold: [0] });
+
+observer.observe(document.querySelector(".product_section"));
+
+</script>
